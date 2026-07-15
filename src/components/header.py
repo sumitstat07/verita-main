@@ -25,7 +25,7 @@ def header_dashboard():
     logo_url=""
 
     st.markdown(f"""
-        <div style="display:flex; align-items:center; justify-content:center; gap:10px; margin-top:30px;">
+        <div style="display:flex; align-items:center; justify-content:center; gap:10px;">
             <img src="{logo_url}" style='height:85px;' />
             <h1 style='text-align:left; color:#E0E3FF;'> Verita </h1>
         </div>
