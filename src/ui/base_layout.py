@@ -64,11 +64,21 @@ def style_background_dashboard():
     st.markdown("""
 
       <style>
-
                 .stApp{
 
-                background:#5865f2 !important
-                   
+                background-color: #05060f;
+            background-image: radial-gradient(1px 1px at 20px 30px, #ffffff, transparent),
+                               radial-gradient(1px 1px at 90px 70px, #ffffff, transparent),
+                               radial-gradient(1px 1px at 150px 20px, #ffffff, transparent),
+                               radial-gradient(2px 2px at 200px 90px, #ffffff, transparent),
+                               radial-gradient(1px 1px at 260px 40px, #ffffff, transparent),
+                               radial-gradient(1px 1px at 320px 110px, #ffffff, transparent),
+                               radial-gradient(2px 2px at 380px 60px, #ffffff, transparent),
+                               radial-gradient(1px 1px at 440px 130px, #ffffff, transparent),
+                               radial-gradient(1px 1px at 500px 10px, #ffffff, transparent);
+            background-repeat: repeat;
+            background-size: 550px 550px;
+
                 }
 
       </style>
@@ -89,10 +99,10 @@ def style_base_layout():
                 
                  /* Hide Top Bar of streamlit */
                 
-                #   #MainMenu, footer,header{
+                  #MainMenu, footer,header{
 
-                # visibility:hidden;
-                # }
+                visibility:hidden;
+                }
 
                 .block-container{
                 padding-top:1.5rem !important;
@@ -177,5 +187,3 @@ def style_base_layout():
       </style>
 
 """,unsafe_allow_html=True)
-    
-

@@ -9,18 +9,6 @@ def teacher_screen():
     style_background_dashboard()
     style_base_layout()
 
-    teacher_screen_login()
-
-    if "teacher_login_type" not in st.session_state or st.session_state.teacher_login_type=="login":
-        teacher_screen_login()
-    elif st.session_state.teacher_login_type=="register":
-        teacher_screen_register()    
-
-
-
-
-
-
     def teacher_screen_login():
         c1,c2=st.columns(2,vertical_alignment="center",gap="xxlarge")
 
@@ -45,15 +33,14 @@ def teacher_screen():
         btcol1,btcol2=st.columns(2)
 
         with btcol1:
-            st.button("Login",icon=":material/passkey:",shortcut="control+enter",width="streach")
+            st.button("Login",icon=":material/passkey:",shortcut="control+enter",width="stretch")
 
         with btcol2:
-            if st.button("Register instead",type="primary",icon=":material/passkey:",shortcut="control+enter",width="streach"):
+            if st.button("Register instead",type="primary",icon=":material/passkey:",shortcut="control+enter",width="stretch"):
                 st.session_state.teacher_login_type="register"
+                st.rerun()
 
         footer_dashboard()
-
-
 
 
     def teacher_screen_register():
@@ -84,10 +71,17 @@ def teacher_screen():
         btnc1,btnc2=st.columns(2)
 
         with btnc1:
-            st.button("Register now",icon=":material/passkey:",shortcut="control+enter",width="streach")
+            st.button("Register now",icon=":material/passkey:",shortcut="control+enter",width="stretch")
 
         with btnc2:
-            st.button("Login Instead",type="primary",icon=":material/passkey:",shortcut="control+enter",width="streach")
+            if st.button("Login Instead",type="primary",icon=":material/passkey:",shortcut="control+enter",width="stretch"):
+                st.session_state.teacher_login_type="login"
+                st.rerun()
 
         footer_dashboard()
-  
+
+
+    if "teacher_login_type" not in st.session_state or st.session_state.teacher_login_type=="login":
+        teacher_screen_login()
+    elif st.session_state.teacher_login_type=="register":
+        teacher_screen_register()
