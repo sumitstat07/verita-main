@@ -89,10 +89,10 @@ def style_base_layout():
                 
                  /* Hide Top Bar of streamlit */
                 
-                  #MainMenu, footer,header{
+                #   #MainMenu, footer,header{
 
-                visibility:hidden;
-                }
+                # visibility:hidden;
+                # }
 
                 .block-container{
                 padding-top:1.5rem !important;
@@ -179,4 +179,3 @@ def style_base_layout():
 """,unsafe_allow_html=True)
     
 
-    
