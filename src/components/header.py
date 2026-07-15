@@ -18,3 +18,15 @@ def header_home():
     """, unsafe_allow_html=True)
 
 
+
+
+def header_dashboard():
+    # Use a raw string so backslashes aren't treated as escape sequences
+    logo_url=""
+
+    st.markdown(f"""
+        <div style="display:flex; align-items:center; justify-content:center; gap:10px; margin-top:30px;">
+            <img src="{logo_url}" style='height:85px;' />
+            <h1 style='text-align:left; color:#E0E3FF;'> Verita </h1>
+        </div>
+    """, unsafe_allow_html=True)
