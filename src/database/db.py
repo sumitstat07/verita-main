@@ -2,11 +2,11 @@ from src.database.config import supabase
 import bcrypt
 
 def hash_pass(pwd):
-    return bcrypt.hashpw(pwd.encode(),bcrypt.gensalt().decode())
+    return bcrypt.hashpw(pwd.encode(),bcrypt.gensalt()).decode()
 
 
 def check_pass(pwd,hashed):
-    return bcrypt.checkpw(pwd.encode(),hashed.code())
+    return bcrypt.checkpw(pwd.encode(),hashed.encode())
 
 
 
@@ -32,3 +32,4 @@ def teacher_login(username,password):
         if check_pass(password,teacher["password"]):
             return teacher
     return None
+
