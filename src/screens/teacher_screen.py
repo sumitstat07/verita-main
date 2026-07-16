@@ -2,12 +2,31 @@ import streamlit as st
 from src.ui.base_layout import style_background_dashboard,style_base_layout
 from src.components.header import header_dashboard
 from src.components.footer import footer_dashboard
+from src.database.db import check_teacher_exists,create_teacher,teacher_login
 
 
 def teacher_screen():
 
     style_background_dashboard()
     style_base_layout()
+
+    def register_teacher(teacher_username,teacher_name,teacher_pass,teacher_pass_confirm):
+        if not teacher_username or not teacher_name or not teacher_pass:
+            return False,"All Fields are required !"
+        
+        if check_teacher_exists(teacher_username):
+            return False,"Username already taken!"
+        
+        
+        if teacher_pass!=teacher_pass_confirm:
+            return False,"Password doesn't match !"
+        
+        try:
+            create_teacher(teacher_username,teacher_pass,teacher_name)
+            return True,"Succesfully Created! Login Now"
+
+        except Exception as e:
+            return False,"Unexpected Error!"    
 
     def teacher_screen_login():
         c1,c2=st.columns(2,vertical_alignment="center",gap="xxlarge")
@@ -30,12 +49,20 @@ def teacher_screen():
 
         st.divider()
 
-        btcol1,btcol2=st.columns(2)
+        btcn1,btcn2=st.columns(2)
 
-        with btcol1:
-            st.button("Login",icon=":material/passkey:",shortcut="control+enter",width="stretch")
+        with btcn1:
+            if st.button("Login",icon=":material/passkey:",shortcut="control+enter",width="stretch"):
+                if teacher_login(teacher_username,teacher_pass):
+                    st.toast("Welcome Back!",icon="👋")
+                    import time
+                    time.sleep(1)
+                    st.rerun()
 
-        with btcol2:
+                else:
+                    st.error("Invalid Username & Password")    
+
+        with btcn2:
             if st.button("Register instead",type="primary",icon=":material/passkey:",shortcut="control+enter",width="stretch"):
                 st.session_state.teacher_login_type="register"
                 st.rerun()
@@ -71,7 +98,17 @@ def teacher_screen():
         btnc1,btnc2=st.columns(2)
 
         with btnc1:
-            st.button("Register now",icon=":material/passkey:",shortcut="control+enter",width="stretch")
+            if st.button("Register now",icon=":material/passkey:",shortcut="control+enter",width="stretch"):
+                success,message=register_teacher(teacher_username,teacher_name,teacher_pass,teacher_pass_confirm)
+                if success:
+                    st.success(message)
+                    import time
+                    time.sleep(2)
+                    st.session_state.teacher_login_type="login"
+                    st.rerun()
+
+                else:
+                    st.error(message)    
 
         with btnc2:
             if st.button("Login Instead",type="primary",icon=":material/passkey:",shortcut="control+enter",width="stretch"):
@@ -85,3 +122,5 @@ def teacher_screen():
         teacher_screen_login()
     elif st.session_state.teacher_login_type=="register":
         teacher_screen_register()
+
+        
