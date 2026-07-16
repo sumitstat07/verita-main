@@ -6,22 +6,35 @@
 
 numpy
 pandas
+scipy
 
 # Face recognition
 
 scikit-learn
 dlib-bin
-
 git+https://github.com/ageitgey/face_recognition_models
 setuptools<70.0.0
 
+# Database & auth
 
-supabase #for database
-bcrypt # for hashing
+supabase
+bcrypt
 
+# QR & image
 
-segno # QR code generator
-pillow # image dealing
+segno
+pillow
+
+# App framework
 
 streamlit
+
+# Voice recognition
+
+librosa
+resemblyzer
+webrtcvad-wheels
+torch
+
+
 
