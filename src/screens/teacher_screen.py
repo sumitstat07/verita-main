@@ -26,7 +26,7 @@ def teacher_screen():
             return True,"Succesfully Created! Login Now"
 
         except Exception as e:
-            return False,"Unexpected Error!"    
+            return False,f"Unexpected Error! {e}"    
 
     def teacher_screen_login():
         c1,c2=st.columns(2,vertical_alignment="center",gap="xxlarge")
@@ -123,4 +123,3 @@ def teacher_screen():
     elif st.session_state.teacher_login_type=="register":
         teacher_screen_register()
 
-        
