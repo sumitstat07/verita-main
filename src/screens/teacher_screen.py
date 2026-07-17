@@ -193,12 +193,6 @@ def teacher_screen():
         footer_dashboard()
 
 
-    # Note: Define the dialog function inside teacher_screen context before tabs reference it
-    def share_subject_dialog(name, subject_code):
-        # Placeholder mapping your intended share dialog function properties
-        pass
-
-
     def teacher_tab_take_attendence():
         st.header("Take AI attendence")
 
@@ -220,19 +214,18 @@ def teacher_screen():
                     ("🕰️","Classes",sub["total_classes"]),
                 ]
 
-            def share_btn(current_sub=sub):
-                if st.button(f"Share Code:{current_sub['name']}",key=f"{current_sub['subject_code']}",icon=":material/share:"):
-                    share_subject_dialog(current_sub["name"],current_sub["subject_code"])
-                st.space()
+                def share_btn(current_sub=sub):
+                    if st.button(f"Share Code:{current_sub['name']}",key=f"{current_sub['subject_code']}",icon=":material/share:"):
+                        share_subject_dialog(current_sub["name"],current_sub["subject_code"])
+                    st.space()
 
-            subject_card(
-                name=sub["name"],
-                code=sub["subject_code"],
-                section=sub["section"],
-                stats=stats,
-                footer_callback=share_btn
-            )            
-         
+                subject_card(
+                    name=sub["name"],
+                    code=sub["subject_code"],
+                    section=sub["section"],
+                    stats=stats,
+                    footer_callback=share_btn
+                )
         else:
             st.info("NO SUBJECT FOUND ,CREATE ONE ABOVE") 
 
@@ -241,14 +234,11 @@ def teacher_screen():
         st.header("Attendence Records")
 
 
-    # Router execution block
     if "teacher_data" in st.session_state:
         teacher_dashboard()
     elif "teacher_login_type" not in st.session_state or st.session_state.teacher_login_type=="login":
         teacher_screen_login()
     elif st.session_state.teacher_login_type=="register":
         teacher_screen_register()
-
-
 
         
