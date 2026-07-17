@@ -4,10 +4,14 @@ from src.database.db import enroll_student_to_subject
 from src.database.config import supabase
 
 @st.dialog("Enroll in Subject")
-
 def enroll_dialog():
     st.write("Enter the subject code provided by your teacher to enroll")
-    join_code=st.text_input("Subject Code",placeholder="e.g CS101")
+    
+    default_code = st.session_state.get("auto_enroll_code", "")
+    join_code=st.text_input("Subject Code", value=default_code, placeholder="e.g CS101")
+    
+    if "auto_enroll_code" in st.session_state:
+        del st.session_state["auto_enroll_code"]
 
     if st.button("Enroll Now",type="primary",width="stretch"):
         if join_code:
@@ -27,4 +31,5 @@ def enroll_dialog():
                     st.rerun()
         else:
             st.warning("Please enter a subject code")
- 
+
+            

@@ -9,6 +9,7 @@ from src.pipelines.voice_pipeline import get_voice_embedding
 from src.database.db import get_all_students,create_student,get_student_subjects,get_student_attendance,unenroll_student_to_subject
 import time
 from src.components.dialog_enroll import enroll_dialog
+from src.components.dialog_auto_enroll import auto_enroll_dialog
 from src.components.subject_card import subject_card
 
 
@@ -17,6 +18,13 @@ def student_dashboard():
       
       student_data=st.session_state.student_data
       student_id=student_data["student_id"]
+      
+      # --- TRIGGER QUICK ENROLLMENT IF CODE IS SAVED ---
+      if "auto_enroll_code" in st.session_state:
+            code_to_enroll = st.session_state.pop("auto_enroll_code")
+            auto_enroll_dialog(code_to_enroll)
+      # -------------------------------------------------
+
       c1,c2=st.columns(2,vertical_alignment="center",gap="xxlarge")
 
       with c1:
@@ -81,8 +89,12 @@ def student_dashboard():
                             """,
                             unsafe_allow_html=True
                         )
+
+
                         if st.button("Unenroll from this course",type="primary",width="stretch",icon=":material/delete:", key=f"unenroll_{current_sid}"):
                               unenroll_student_to_subject(student_id,current_sid)
+                              st.toast(f"Unenrolled from {sub['name']} successfully")
+                              st.rerun()
 
             
 
@@ -109,6 +121,13 @@ def student_dashboard():
 
 
 def student_screen():
+    if "join-code" in st.query_params:
+        join_code = st.query_params["join-code"]
+        if "student_data" in st.session_state:
+            st.session_state["auto_enroll_code"] = join_code
+            del st.query_params["join-code"]
+        else:
+            st.session_state["pending_join_code"] = join_code
 
     style_background_dashboard()
     style_base_layout()
@@ -160,6 +179,10 @@ def student_screen():
                                   st.session_state.is_logged_in=True
                                   st.session_state.user_role="student"
                                   st.session_state.student_data=student
+                                  if "pending_join_code" in st.session_state:
+                                      st.session_state["auto_enroll_code"] = st.session_state.pop("pending_join_code")
+                                      if "join-code" in st.query_params:
+                                          del st.query_params["join-code"]
                                   st.toast(f"Welcome Back {student['name']} !")
                                   time.sleep(1)
                                   st.rerun()
@@ -205,6 +228,10 @@ def student_screen():
                                         st.session_state.is_logged_in=True
                                         st.session_state.user_role="student"
                                         st.session_state.student_data=response_data[0]
+                                        if "pending_join_code" in st.session_state:
+                                            st.session_state["auto_enroll_code"] = st.session_state.pop("pending_join_code")
+                                            if "join-code" in st.query_params:
+                                                del st.query_params["join-code"]
                                         st.toast(f"Profile Created! Hi {new_name} !")
                                         time.sleep(1)
                                         st.rerun()
@@ -221,5 +248,3 @@ def student_screen():
 
 
     footer_dashboard()
-
-    
