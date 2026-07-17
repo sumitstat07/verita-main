@@ -86,75 +86,6 @@ def teacher_screen():
         footer_dashboard()
 
 
-
-def teacher_tab_take_attendence():
-    st.header("Take AI attendence")
-
-def teacher_tab_manage_subjects():
-    teacher_id=st.session_state.teacher_data["teacher_id"]
-    col1,col2=st.columns(2)
-    with col1:
-        st.header("Manage Subjects",width="stretch")
-
-    with col2:
-        if st.button("Create New Subjects",width="stretch"):
-            create_subject_dialog(teacher_id)    
-    st.header("Manage Subjects")    
-
-    subjects=get_teacher_subjects(teacher_id)
-    if subjects:
-        for sub in subjects:
-            stats=[
-                ("👥","Students",sub["total_students"]),
-                ("🕰️","Classes",sub["total_classes"]),
-
-            ]
-
-        def share_btn():
-            if st.button(f"Share Code:{sub["name"]}",key=f"{sub["subject_code"]}",icon=":material/share:"):
-                share_subject_dialog(sub["name"],sub["subject_code"])
-
-            st.space()
-
-
-        subject_card(
-            name=sub["name"],
-            code=sub["subject_code"],
-            section=sub["section"],
-            stats=stats,
-            footer_callback=share_btn
-        )            
-     
-    else:
-        st.info("NO SUBJECT FOUND ,CREATE ONE ABOVE") 
-
-
-def teacher_tab_attendence_records():
-    st.header("Attendence Records")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-
     def login_teacher(username,password):
         if not username or not password:
             return False
@@ -260,6 +191,55 @@ def teacher_tab_attendence_records():
         footer_dashboard()
 
 
+    # Note: Define the dialog function inside teacher_screen context before tabs reference it
+    def share_subject_dialog(name, subject_code):
+        # Placeholder mapping your intended share dialog function properties
+        pass
+
+
+    def teacher_tab_take_attendence():
+        st.header("Take AI attendence")
+
+    def teacher_tab_manage_subjects():
+        teacher_id=st.session_state.teacher_data["teacher_id"]
+        col1,col2=st.columns(2)
+        with col1:
+            st.header("Manage Subjects",width="stretch")
+
+        with col2:
+            if st.button("Create New Subjects",width="stretch"):
+                create_subject_dialog(teacher_id)    
+
+        subjects=get_teacher_subjects(teacher_id)
+        if subjects:
+            for sub in subjects:
+                stats=[
+                    ("👥","Students",sub["total_students"]),
+                    ("🕰️","Classes",sub["total_classes"]),
+                ]
+
+            def share_btn(current_sub=sub):
+                if st.button(f"Share Code:{current_sub['name']}",key=f"{current_sub['subject_code']}",icon=":material/share:"):
+                    share_subject_dialog(current_sub["name"],current_sub["subject_code"])
+                st.space()
+
+            subject_card(
+                name=sub["name"],
+                code=sub["subject_code"],
+                section=sub["section"],
+                stats=stats,
+                footer_callback=share_btn
+            )            
+         
+        else:
+            st.info("NO SUBJECT FOUND ,CREATE ONE ABOVE") 
+
+
+    def teacher_tab_attendence_records():
+        st.header("Attendence Records")
+
+
+    # Router execution block
     if "teacher_data" in st.session_state:
         teacher_dashboard()
     elif "teacher_login_type" not in st.session_state or st.session_state.teacher_login_type=="login":
