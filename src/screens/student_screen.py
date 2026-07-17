@@ -65,7 +65,23 @@ def student_dashboard():
 
             stats=stats_map.get(sid,{"total":0,"attended":0})
             def unenroll_btn(current_sid=sid):
-                        if st.button("Unenroll from this course",type="tertiary",width="stretch"):
+                        st.markdown(
+                            """
+                            <style>
+                            div.stButton > button[key^="unenroll_"] {
+                                background-color: #EB459E !important;
+                                color: white !important;
+                                border: none !important;
+                            }
+                            div.stButton > button[key^="unenroll_"]:hover {
+                                background-color: #d03784 !important;
+                                color: white !important;
+                            }
+                            </style>
+                            """,
+                            unsafe_allow_html=True
+                        )
+                        if st.button("Unenroll from this course",type="primary",width="stretch",icon=":material/delete:", key=f"unenroll_{current_sid}"):
                               unenroll_student_to_subject(student_id,current_sid)
 
             
@@ -76,8 +92,8 @@ def student_dashboard():
                         code=sub["subject_code"],
                         section=sub["section"],
                         stats=[
-                              ("📆","Total",stats["total"]),
-                              ("✅","Attended",stats["attended"]),
+                              ("📆","Total",int(stats["total"])),
+                              ("✅","Attended",int(stats["attended"])),
                         ],
                         footer_callback=unenroll_btn
                   )
@@ -144,7 +160,7 @@ def student_screen():
                                   st.session_state.is_logged_in=True
                                   st.session_state.user_role="student"
                                   st.session_state.student_data=student
-                                  st.toast(f"Welcome Back {student["name"]} !")
+                                  st.toast(f"Welcome Back {student['name']} !")
                                   time.sleep(1)
                                   st.rerun()
 
@@ -195,27 +211,15 @@ def student_screen():
 
                             else:
                                   st.warning("Please enter your name!")
-                                              
-
+                                             
 
 
                 else:
-                      st.warning("Please enter your name!")               
+                      st.warning("Please enter your name!")                  
 
 
 
 
     footer_dashboard()
 
-
-
-
-
-
-
-
-
-
-
-
-
+    
