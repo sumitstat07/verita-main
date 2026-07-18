@@ -1,14 +1,18 @@
 import streamlit as st
 import base64
+import os
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+LOGO_PATH = os.path.join(BASE_DIR, "verita_logo.png")
+
+
+def get_logo_base64():
+    with open(LOGO_PATH, "rb") as f:
+        return base64.b64encode(f.read()).decode()
 
 
 def header_home():
-    # Use a raw string so backslashes aren't treated as escape sequences
-    logo_path = r"C:\Users\DELL\OneDrive\Desktop\verita\logo2.jpg"
-
-    # Browsers can't load local file paths directly, so encode the image as base64
-    with open(logo_path, "rb") as f:
-        logo_base64 = base64.b64encode(f.read()).decode()
+    logo_base64 = get_logo_base64()
 
     st.markdown(f"""
         <div style="display:flex; flex-direction:column; align-items:center; justify-content:center;margin-bottom:30px; margin-top:30px;">
@@ -18,15 +22,14 @@ def header_home():
     """, unsafe_allow_html=True)
 
 
-
-
 def header_dashboard():
-    # Use a raw string so backslashes aren't treated as escape sequences
-    logo_url=""
+    logo_base64 = get_logo_base64()
 
     st.markdown(f"""
         <div style="display:flex; align-items:center; justify-content:center; gap:10px;">
-            <img src="{logo_url}" style='height:85px;' />
+            <img src="data:image/png;base64,{logo_base64}" style='height:85px;' />
             <h1 style='text-align:left; color:#E0E3FF;'> Verita </h1>
         </div>
     """, unsafe_allow_html=True)
+
+    
