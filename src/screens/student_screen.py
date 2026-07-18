@@ -4,7 +4,7 @@ from src.components.header import header_dashboard
 from src.components.footer import footer_dashboard
 from PIL import Image
 import numpy as np
-from src.pipelines.face_pipeline import predict_attendence,get_face_embeddings,train_classifier
+from src.pipelines.face_pipeline import predict_attendance,get_face_embeddings,train_classifier
 from src.pipelines.voice_pipeline import get_voice_embedding
 from src.database.db import get_all_students,create_student,get_student_subjects,get_student_attendance,unenroll_student_to_subject
 import time
@@ -161,7 +161,7 @@ def student_screen():
           img=np.array(Image.open(photo_source))
 
           with st.spinner("AI is scanning...."):
-                detected,all_ids,num_faces=predict_attendence(img)
+                detected,all_ids,num_faces=predict_attendance(img)
 
                 if num_faces==0:
                       st.warning("Face not found !")
@@ -199,7 +199,7 @@ def student_screen():
           new_name=st.text_input("Enter your name",placeholder="e.g Sumit Sarkar")
 
           st.subheader("Optional: Voice Enrollment")
-          st.info("Enroll you for voice only attendence")
+          st.info("Enroll you for voice only attendance")
 
 
           audio_data=None
