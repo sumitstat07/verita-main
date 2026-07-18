@@ -11,6 +11,10 @@ from src.components.dialog_auto_enroll import auto_enroll_dialog
 
 
 def main():
+    st.set_page_config(
+        page_title="Verita - Making Attendance faster using AI",
+        page_icon="https://play-lh.googleusercontent.com/33HmkRjHGd59jChzUp5dLLehZuH1dTTGRKVDOka8yAVSuRao0ufmxStIjmKYV73Un0TOdO74WHHKXzVRFFDwMw=w240-h480-rw"
+    )
 
     if "login_type" not in st.session_state:
         st.session_state["login_type"]=None
