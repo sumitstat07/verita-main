@@ -8,11 +8,7 @@ import pandas as pd
 from src.components.dialog_attendance_results import show_attendance_result
 
 
-
-
-
-st.dialog("Voice Attendance")
-
+@st.dialog("Voice Attendance")
 def voice_attendance_dialog(selected_subject_id):
     st.write("Record audio of students saying I am present.Then AI will recognize the students")
 
@@ -20,6 +16,11 @@ def voice_attendance_dialog(selected_subject_id):
     audio_data=st.audio_input("Record classroom audio")
 
     if st.button("Analyze Audio",width="stretch",type="primary"):
+
+        if audio_data is None:
+            st.warning("Please record audio first!")
+            return
+
         with st.spinner("Processing Audio data"):
             enrolled_res= supabase.table("subject_students").select("*,students(*)").eq("subject_id",selected_subject_id).execute()
             enrolled_students=enrolled_res.data
@@ -28,7 +29,7 @@ def voice_attendance_dialog(selected_subject_id):
                  return
             
             candidates_dict={
-                s["students"]["student_id:"]:s["students"]["voice_embedding"]
+                s["students"]["student_id"]:s["students"]["voice_embedding"]
                 for s in enrolled_students if s["students"].get("voice_embedding")
             }
 
@@ -37,7 +38,12 @@ def voice_attendance_dialog(selected_subject_id):
                 return
             
             audio_bytes=audio_data.read()
-            detected_scores=process_bulk_audio(audio_bytes,candidates_dict)
+
+            try:
+                detected_scores=process_bulk_audio(audio_bytes,candidates_dict)
+            except Exception as e:
+                st.error(f"Bulk process error: {e}")
+                return
 
             results,attendance_to_log=[],[]
 
@@ -69,10 +75,4 @@ def voice_attendance_dialog(selected_subject_id):
         st.divider()
         df_results,logs=st.session_state.voice_attendance_results
         show_attendance_result(df_results,logs)
-
-
-
-
-
-            
-
+        
