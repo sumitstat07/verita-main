@@ -17,7 +17,7 @@ def header_home():
     st.markdown(f"""
         <div style="display:flex; flex-direction:column; align-items:center; justify-content:center;margin-bottom:30px; margin-top:30px;">
             <img src="data:image/png;base64,{logo_base64}" style='height:100px;' />
-            <h1 style='text-align:center; color:#E0E3FF;'> Verita </h1>
+            <h1 style='text-align:center; color:#E0E3FF; padding-left:12px; letter-spacing:1px;'> Verita </h1>
         </div>
     """, unsafe_allow_html=True)
 
@@ -32,4 +32,3 @@ def header_dashboard():
         </div>
     """, unsafe_allow_html=True)
 
-    
