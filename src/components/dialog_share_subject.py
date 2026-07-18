@@ -9,7 +9,7 @@ def share_subject_dialog(subject_name,subject_code):
     app_domain="verita-main.streamlit.app"
     join_url=f"https://{app_domain}/?join-code={subject_code}"
 
-    st.header("Scan to Join")
+    st.header(f"Scan to Join-{subject_name}")
 
     qr=segno.make(join_url)
 
