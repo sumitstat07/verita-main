@@ -1,5 +1,4 @@
 import streamlit as st
-from src.database.db import create_student
 import segno
 import io
 
@@ -8,7 +7,7 @@ import io
 
 def share_subject_dialog(subject_name,subject_code):
     app_domain="verita-main.streamlit.app"
-    join_url=f"{app_domain}/?join-code={subject_code}"
+    join_url=f"https://{app_domain}/?join-code={subject_code}"
 
     st.header("Scan to Join")
 

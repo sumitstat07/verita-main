@@ -1,5 +1,6 @@
-
+#App framework
 streamlit
+
 # Utilities
 
 # python -m venv venv 
@@ -27,9 +28,6 @@ bcrypt
 segno
 pillow
 
-# App framework
-
-streamlit
 
 # Voice recognition
 
