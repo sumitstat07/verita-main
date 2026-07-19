@@ -34,6 +34,7 @@ Welcome to the backend engineering repository of **Verita**, a multi-modal biome
 ├── app.py                      # Main Streamlit reactive application engine
 ├── requirements.txt            # Explicit ML architecture requirements
 └── verita_logo.png             # Hexagonal branding asset
+
 ```
 
 🛠️ Installation & Architectural Deployment
