@@ -145,7 +145,7 @@ def teacher_screen():
                     st.error("Invalid Username & Password")    
 
         with btcn2:
-            if st.button("Register instead",type="primary",icon=":material/passkey:",shortcut="control+enter",width="stretch"):
+            if st.button("Register instead",type="primary",icon=":material/passkey:",shortcut="control+r",width="stretch"):
                 st.session_state.teacher_login_type="register"
                 st.rerun()
 
@@ -193,7 +193,7 @@ def teacher_screen():
                     st.error(message)    
 
         with btnc2:
-            if st.button("Login Instead",type="primary",icon=":material/passkey:",shortcut="control+enter",width="stretch"):
+            if st.button("Login Instead",type="primary",icon=":material/passkey:",shortcut="control+l",width="stretch"):
                 st.session_state.teacher_login_type="login"
                 st.rerun()
 
@@ -391,7 +391,3 @@ def teacher_screen():
         teacher_screen_login()
     elif st.session_state.teacher_login_type=="register":
         teacher_screen_register()
-
-
-
-        

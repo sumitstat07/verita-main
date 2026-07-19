@@ -18,6 +18,7 @@ def header_home():
         <div style="display:flex; flex-direction:column; align-items:center; justify-content:center;margin-bottom:30px; margin-top:30px;">
             <img src="data:image/png;base64,{logo_base64}" style='height:100px;' />
             <h1 style='text-align:center; color:#E0E3FF; padding-left:16px; letter-spacing:1px;'> Verita </h1>
+            <p style='text-align:center; color:#8A8FA3; font-size:1rem; margin-top:-10px; letter-spacing:0.5px;'>AI-Powered Intelligent Attendance System</p>
         </div>
     """, unsafe_allow_html=True)
 
@@ -31,4 +32,3 @@ def header_dashboard():
             <h1 style='text-align:left; color:#E0E3FF;'> Verita </h1>
         </div>
     """, unsafe_allow_html=True)
-

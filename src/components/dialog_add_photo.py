@@ -25,7 +25,7 @@ def add_photos_dialog():
     
     with t2:
         type_upload="primary" if  st.session_state.photo_tab=="upload" else "tertiary"
-        if st.button("Upload photos",type=type_camera,width="stretch"):
+        if st.button("Upload photos",type=type_upload,width="stretch"):
             st.session_state.photo_tab="upload"
 
 
@@ -48,12 +48,3 @@ def add_photos_dialog():
     st.divider()
     if st.button("Done",type="primary",width="stretch"):
         st.rerun()
-
-            
-
-
-
-
-    
-
-            
