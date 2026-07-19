@@ -38,6 +38,7 @@ Welcome to the backend engineering repository of **Verita**, a multi-modal biome
 ```
 
 ##🛠️ Installation & Architectural Deployment
+
 System Prerequisites
 To successfully compile the low-level numerical C++ structures required by the vision engine, ensure your system tools are configured:
 
@@ -49,24 +50,25 @@ Windows: Visual Studio Build Tools containing desktop C++ compilers.
 
 Execution Instructions
 Clone and Navigate:
-
-Bash
 git clone [https://github.com/sumitstat07/verita-main.git](https://github.com/sumitstat07/verita-main.git)
 cd verita-main
-Initialize Environment Variables (.env):
+
+
+## Initialize Environment Variables (.env):
+
 Create a secret file in the root directory to authorize remote cloud transactions:
 
-Code snippet
 SUPABASE_URL="your-supabase-project-endpoint"
 SUPABASE_KEY="your-supabase-service-role-token"
-Install Core Libraries & Launch:
+
+## Install Core Libraries & Launch:
 
 Bash
 pip install -r requirements.txt
 streamlit run app.py
-📈 Scalability and Production Optimizations
+
+
+## 📈 Scalability and Production Optimizations
 Memory Management: Implements Streamlit memory caching decorator functions (@st.cache_resource) to hold spatial weight frameworks in system RAM rather than re-instantiating heavy layers upon user re-renders.
 
 Thread Safety: Database input/output routines are structurally decoupled from UI calculations to keep verification workflows running asynchronously without thread contention.
-
-
