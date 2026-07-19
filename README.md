@@ -37,7 +37,7 @@ Welcome to the backend engineering repository of **Verita**, a multi-modal biome
 
 ```
 
-🛠️ Installation & Architectural Deployment
+##🛠️ Installation & Architectural Deployment
 System Prerequisites
 To successfully compile the low-level numerical C++ structures required by the vision engine, ensure your system tools are configured:
 
